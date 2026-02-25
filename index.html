@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konrad Jaworski — Psia Fotografia</title>
     <meta name="description"
-        content="Portfolio psiej fotografii Konrada Jaworskiego. Uwieczniamy wyjątkowe chwile czworonogów.">
+        content="Portfolio psiej fotografii Konrada Jaworskiego. Profesjonalne sesje, portrety psów i unikalne zdjęcia na ścianę.">
+    <meta name="keywords"
+        content="fotografia psów, psi fotograf, sesje zdjęciowe psów, portrety psów, zdjęcia psów na ścianę">
     <meta name="author" content="Konrad Jaworski">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Konrad Jaworski — Psia Fotografia">
     <meta property="og:description"
-        content="Portfolio psiej fotografii Konrada Jaworskiego. Uwieczniamy wyjątkowe chwile czworonogów.">
+        content="Portfolio psiej fotografii Konrada Jaworskiego. Profesjonalne sesje, portrety psów i unikalne zdjęcia na ścianę.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://konradjaworskiphoto.github.io">
     <meta property="og:image" content="https://konradjaworskiphoto.github.io/images/medium/_mg_0420-8-edit-2.jpg">
@@ -35,8 +37,11 @@
                 <span></span>
             </button>
             <ul class="nav__links" id="navLinks">
+                <li><a href="#about" class="nav__link">O mnie</a></li>
+                <li><a href="#offer" class="nav__link">Oferta</a></li>
                 <li><a href="#gallery" class="nav__link">Galeria</a></li>
                 <li><a href="#contact" class="nav__link">Kontakt</a></li>
+                <li><a href="#contact" class="nav__cta">Umów sesję</a></li>
             </ul>
         </div>
     </nav>
@@ -49,11 +54,57 @@
                 <span class="hero__title-sub">Psia Fotografia</span>
             </h1>
             <p class="hero__tagline">Portrety z pazurem.</p>
+            <a href="#contact" class="hero__cta">
+                <span>Umów sesję</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2v12M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about__inner">
+            <h2 class="about__title">Fotografia z pasji</h2>
+            <p class="about__description">Cześć, jestem Konrad i jako dumny psi tata, od lat fascynuję się psią
+                fotografią. Moją największą miłością są portrety – te wyraziste, pełne charakteru i emocji ujęcia, które
+                ukazują prawdziwą naturę czworonogów. Wierzę, że każdy pies ma w sobie to "coś", a moim zadaniem jest
+                uchwycenie tego w obiektywie.</p>
+        </div>
+    </section>
+
+    <!-- Offer Section -->
+    <section class="offer" id="offer">
+        <div class="offer__inner">
+            <h2 class="offer__title">Moja Oferta</h2>
+            <div class="offer__grid">
+                <div class="offer__card">
+                    <div class="offer__icon">📸</div>
+                    <h3>Indywidualne Sesje</h3>
+                    <p>Dopasowane w 100% do możliwości, charakteru i predyspozycji Twojego psa, by w kadrze czuł się
+                        swobodnie.</p>
+                </div>
+                <div class="offer__card">
+                    <div class="offer__icon">🖼️</div>
+                    <h3>Zdjęcia na Ścianę</h3>
+                    <p>Wysokiej rozdzielczości "fine-artowe" portrety o unikalnym klimacie, idealne jako pamiątka pod
+                        wydruk.</p>
+                </div>
+                <div class="offer__card">
+                    <div class="offer__icon">⭐</div>
+                    <h3>Profesjonalne Sesje</h3>
+                    <p>Najwyższa dbałość o detale na każdym etapie – od przygotowań asystenckich po autorską, malarską
+                        postprodukcję.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
     <section class="gallery" id="gallery">
+        <h2 class="sr-only">Galeria Realizacji</h2>
         <div class="gallery__grid" id="galleryGrid">
             <!-- Images injected by gallery.js -->
         </div>
@@ -100,6 +151,23 @@
                 <div class="contact__field">
                     <input type="email" name="email" id="contactEmail" required placeholder=" " autocomplete="email">
                     <label for="contactEmail">Email</label>
+                </div>
+                <div class="contact__field">
+                    <input type="text" name="dog_info" id="contactDogInfo" placeholder=" ">
+                    <label for="contactDogInfo">Rasa / Wiek psa (Opcjonalnie)</label>
+                </div>
+                <div class="contact__field contact__field--select">
+                    <select name="session_type" id="contactSessionType" required>
+                        <option value="" disabled selected hidden></option>
+                        <option value="portret">Portret / Zdjęcia na ścianę</option>
+                        <option value="plener">Sesja z ruchem</option>
+                        <option value="inne">Inne / Sam nie wiem</option>
+                    </select>
+                    <label for="contactSessionType">Rodzaj sesji (Opcjonalnie)</label>
+                    <svg class="contact__select-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
                 </div>
                 <div class="contact__field">
                     <textarea name="message" id="contactMessage" required placeholder=" " rows="5"></textarea>

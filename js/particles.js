@@ -217,26 +217,14 @@
     function init() {
         resize();
 
-        // Stop animation if we scroll past hero/canvas to save battery
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                isVisible = entry.isIntersecting;
-                onVisibilityChange();
-            });
-        }, { threshold: 0, rootMargin: '100px' });
-
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            observer.observe(hero);
-        } else {
-            observer.observe(canvas);
-        }
-
         window.addEventListener('resize', resize);
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('touchmove', onTouchMove, { passive: true });
         document.addEventListener('touchend', onTouchEnd);
         document.addEventListener('visibilitychange', onVisibilityChange);
+
+        // Start animation loop
+        animate();
     }
 
     if (document.readyState === 'loading') {
