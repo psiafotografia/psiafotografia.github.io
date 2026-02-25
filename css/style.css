@@ -730,6 +730,11 @@ button {
     -webkit-appearance: none;
 }
 
+.contact__field select option {
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
 .contact__field select {
     cursor: pointer;
 }
@@ -767,7 +772,8 @@ button {
 .contact__field textarea:focus~label,
 .contact__field textarea:not(:placeholder-shown)~label,
 .contact__field select:focus~label,
-.contact__field select:valid~label {
+.contact__field select:valid~label,
+.contact__field select:not([value=""])~label {
     top: 10px;
     transform: translateY(0);
     font-size: var(--font-size-xs);
@@ -958,7 +964,25 @@ button {
     }
 
     .contact {
-        padding: var(--spacing-2xl) var(--spacing-sm);
+        padding: var(--spacing-xl) var(--spacing-sm);
+    }
+
+    .about,
+    .offer {
+        padding: var(--spacing-xl) var(--spacing-sm);
+    }
+
+    .about__title,
+    .offer__title,
+    .contact__title {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .nav__cta {
+        font-size: var(--font-size-sm);
+        padding: 12px 24px;
+        margin-top: var(--spacing-sm);
     }
 }
 
