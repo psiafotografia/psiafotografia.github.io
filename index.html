@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konrad Jaworski — Psia Fotografia</title>
+    <meta name="description"
+        content="Portfolio psiej fotografii Konrada Jaworskiego. Uwieczniamy wyjątkowe chwile czworonogów.">
+    <meta name="author" content="Konrad Jaworski">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Konrad Jaworski — Psia Fotografia">
+    <meta property="og:description"
+        content="Portfolio psiej fotografii Konrada Jaworskiego. Uwieczniamy wyjątkowe chwile czworonogów.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://konradjaworskiphoto.github.io">
+    <meta property="og:image" content="https://konradjaworskiphoto.github.io/images/medium/_mg_0420-8-edit-2.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Full-page particle background -->
+    <canvas id="particleCanvas" class="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav__inner">
+            <a href="#" class="nav__logo">KJ</a>
+            <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="#gallery" class="nav__link">Galeria</a></li>
+                <li><a href="#contact" class="nav__link">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero__content">
+            <h1 class="hero__title">
+                <span class="hero__title-line">Konrad Jaworski</span>
+                <span class="hero__title-sub">Psia Fotografia</span>
+            </h1>
+            <p class="hero__tagline">Portrety z pazurem.</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="gallery__grid" id="galleryGrid">
+            <!-- Images injected by gallery.js -->
+        </div>
+        <button class="gallery__load-more" id="loadMore">
+            <span>Pokaż więcej</span>
+        </button>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox__close" id="lightboxClose" aria-label="Zamknij podgląd">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </button>
+        <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Poprzednie zdjęcie">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+        <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Następne zdjęcie">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+        <div class="lightbox__content">
+            <img class="lightbox__img" id="lightboxImg" src="" alt="">
+        </div>
+        <div class="lightbox__counter" id="lightboxCounter"></div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact__inner">
+            <h2 class="contact__title">Skontaktuj się</h2>
+            <p class="contact__subtitle">Chcesz uwiecznić swojego pupila? Napisz do mnie.</p>
+            <form class="contact__form" id="contactForm" action="https://formspree.io/f/xgolpyyn" method="POST">
+                <div class="contact__field">
+                    <input type="text" name="name" id="contactName" required placeholder=" " autocomplete="name">
+                    <label for="contactName">Imię</label>
+                </div>
+                <div class="contact__field">
+                    <input type="email" name="email" id="contactEmail" required placeholder=" " autocomplete="email">
+                    <label for="contactEmail">Email</label>
+                </div>
+                <div class="contact__field">
+                    <textarea name="message" id="contactMessage" required placeholder=" " rows="5"></textarea>
+                    <label for="contactMessage">Wiadomość</label>
+                </div>
+                <button type="submit" class="contact__submit" id="contactSubmit">
+                    <span>Wyślij wiadomość</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <p class="contact__status" id="contactStatus"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Konrad Jaworski — Psia Fotografia</p>
+    </footer>
+
+    <script src="js/particles.js"></script>
+    <script src="js/masonry.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Reorder — Admin</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Reuse production gallery styles for authentic preview -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Admin-specific overrides -->
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <div class="toolbar__title">
+            📷 Photo Reorder <span id="photoCount"></span>
+        </div>
+        <div class="toolbar__actions">
+            <button class="btn btn--secondary" id="btnReset">↻ Reset</button>
+            <button class="btn btn--primary" id="btnCopy">📋 Copy JSON</button>
+            <button class="btn btn--primary" id="btnDownload">⬇ Download JSON</button>
+        </div>
+    </div>
+
+    <!-- Gallery preview using same structure as production -->
+    <section class="gallery" id="gallery">
+        <div class="gallery__grid" id="galleryGrid">
+            <!-- Images injected by admin.js using same masonry engine -->
+        </div>
+    </section>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="js/masonry.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>
