@@ -233,7 +233,7 @@ button {
    ======================================== */
 .hero {
     position: relative;
-    height: 30vh;
+    height: 20vh;
     min-height: 250px;
     max-height: 400px;
     display: flex;
@@ -777,8 +777,10 @@ button {
 
     .hero {
         height: auto;
-        min-height: 150px;
-        padding-top: var(--spacing-3xl);
+        min-height: auto;
+        padding-top: 50px;
+        /* Gives some breathing room below the 64px nav */
+        padding-bottom: 0px;
     }
 
     .gallery {

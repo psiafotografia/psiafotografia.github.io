@@ -48,7 +48,14 @@
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.querySelector(anchor.getAttribute('href'));
+            const href = anchor.getAttribute('href');
+
+            if (href === '#') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            const target = document.querySelector(href);
             if (target) {
                 const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 64;
                 const y = target.getBoundingClientRect().top + window.scrollY - offset;
