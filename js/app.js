@@ -54,7 +54,7 @@
     });
 
     // Close mobile nav on link click
-    navLinks.querySelectorAll('.nav__link').forEach(link => {
+    navLinks.querySelectorAll('.nav__link, .nav__cta').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('nav__links--open');
             navToggle.classList.remove('nav__toggle--active');
