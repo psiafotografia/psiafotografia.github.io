@@ -23,7 +23,7 @@
         lineDistance: 120,
         lineOpacity: 0.1,
         particleOpacity: 0.5,
-        mouseInfluence: 0.02,
+        mouseInfluence: 0.08, // Increased from 0.02 to make it more noticeable
     };
 
     function updateConfigForScreenSize() {

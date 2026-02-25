@@ -10,6 +10,7 @@
     const contactSubmit = document.getElementById('contactSubmit');
 
     const backToTop = document.getElementById('backToTop');
+    const heroContent = document.querySelector('.hero__content');
 
     // =====================
     // Navigation scroll effect
@@ -21,6 +22,12 @@
             nav.classList.add('nav--scrolled');
         } else {
             nav.classList.remove('nav--scrolled');
+        }
+
+        // Hero parallax
+        if (heroContent) {
+            heroContent.style.transform = `translateY(${scrollY * 0.4}px)`;
+            heroContent.style.opacity = Math.max(1 - scrollY / 400, 0);
         }
 
         // Back to top visibility
@@ -137,21 +144,32 @@
     // =====================
     // Reveal on scroll (for sections)
     // =====================
-    const sections = document.querySelectorAll('.contact__inner');
-    const sectionObserver = new IntersectionObserver((entries) => {
+    const revealElements = document.querySelectorAll('.about__title, .about__description, .offer__title, .offer__card, .gallery__header, .contact__inner > *:not(.contact__form), .contact__form > *');
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                sectionObserver.unobserve(entry.target);
+                revealObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
 
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        sectionObserver.observe(section);
+    revealElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+
+        let delay = '0s';
+        if (el.classList.contains('offer__card')) {
+            const cardIndex = Array.from(el.parentNode.children).indexOf(el);
+            delay = `${cardIndex * 0.15}s`;
+        } else if (el.closest('.contact__form')) {
+            const formElements = Array.from(el.closest('.contact__form').children);
+            const index = formElements.indexOf(el);
+            delay = `${index * 0.1}s`;
+        }
+
+        el.style.transition = `opacity 0.8s ease ${delay}, transform 0.8s ease ${delay}`;
+        revealObserver.observe(el);
     });
 })();

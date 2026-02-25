@@ -419,9 +419,24 @@ button {
     border-color: rgba(255, 255, 255, 0.15);
 }
 
+.offer__card:hover .offer__icon {
+    transform: scale(1.15) rotate(5deg);
+}
+
 .offer__icon {
     font-size: 2.5rem;
     margin-bottom: var(--spacing-md);
+    display: inline-block;
+    transition: transform var(--transition-base);
+    animation: floatIcon 4s ease-in-out infinite;
+}
+
+.offer__card:nth-child(2) .offer__icon {
+    animation-delay: 1.5s;
+}
+
+.offer__card:nth-child(3) .offer__icon {
+    animation-delay: 3s;
 }
 
 .offer__card h3 {
@@ -812,10 +827,18 @@ button {
     align-self: center;
 }
 
+.contact__submit svg {
+    transition: transform var(--transition-base);
+}
+
 .contact__submit:hover {
     background: rgba(255, 255, 255, 0.85);
     transform: translateY(-1px);
     box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
+.contact__submit:hover svg {
+    transform: translateX(4px);
 }
 
 .contact__submit:active {
@@ -888,6 +911,10 @@ button {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
+.back-to-top:hover svg {
+    animation: bobDown 1.5s ease-in-out infinite;
+}
+
 /* ========================================
    ANIMATIONS
    ======================================== */
@@ -924,6 +951,18 @@ button {
 
     50% {
         opacity: 0.7;
+    }
+}
+
+@keyframes floatIcon {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
     }
 }
 
@@ -966,6 +1005,37 @@ button {
 
     .nav__links--open {
         right: 0;
+    }
+
+    .nav__links li {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .nav__links--open li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav__links--open li:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    .nav__links--open li:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+
+    .nav__links--open li:nth-child(3) {
+        transition-delay: 0.3s;
+    }
+
+    .nav__links--open li:nth-child(4) {
+        transition-delay: 0.4s;
+    }
+
+    .nav__links--open li:nth-child(5) {
+        transition-delay: 0.5s;
     }
 
     .nav__link {
