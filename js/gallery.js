@@ -69,6 +69,53 @@
         return placeholders;
     }
 
+    /* =============================================
+       PROGRESSIVE IMAGE LOADING
+       ============================================= */
+    const MAX_CONCURRENT_UPLOADS = 3;
+    let currentUploads = 0;
+    const upgradeQueue = [];
+
+    function processUpgradeQueue() {
+        if (currentUploads >= MAX_CONCURRENT_UPLOADS || upgradeQueue.length === 0) return;
+        
+        const { img, item, photo } = upgradeQueue.shift();
+        currentUploads++;
+
+        const mediumImg = new Image();
+        mediumImg.src = photo.medium;
+        mediumImg.onload = () => {
+            img.src = photo.medium;
+            img.classList.remove('gallery__img--thumb');
+            img.classList.add('gallery__img--upgraded');
+            item.dataset.upgraded = 'true';
+            currentUploads--;
+            processUpgradeQueue();
+        };
+        mediumImg.onerror = () => {
+            currentUploads--;
+            processUpgradeQueue();
+        };
+    }
+
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const item = entry.target;
+                const img = item.querySelector('img');
+                const index = item.dataset.index;
+                const photo = allPhotos[index];
+
+                if (item.dataset.upgraded !== 'true' && !item.dataset.upgrading) {
+                    item.dataset.upgrading = 'true';
+                    upgradeQueue.push({ img, item, photo });
+                    processUpgradeQueue();
+                }
+                observer.unobserve(item);
+            }
+        });
+    }, { rootMargin: '200px' });
+
     /**
      * Load next batch of images.
      * All images in the batch load eagerly, but placement is sequential
@@ -94,6 +141,10 @@
                 // Remove skeleton class before placing
                 item.classList.remove('gallery__item--skeleton');
                 Masonry.layoutItem(item);
+                
+                // Observe for progressive upgrade
+                imageObserver.observe(item);
+                
                 nextToPlace++;
             }
         }
@@ -131,6 +182,7 @@
 
             // Load eagerly — batch sizes are small (15-20 thumbs)
             img.src = photo.thumb;
+            img.classList.add('gallery__img--thumb');
 
             item.appendChild(img);
             item.addEventListener('click', () => openLightbox(i));

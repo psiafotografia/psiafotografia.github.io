@@ -381,6 +381,20 @@ button {
     will-change: transform;
 }
 
+/* Blur-up: thumbnail appears slightly blurred until high-res loads */
+.gallery__img--thumb {
+    filter: blur(6px);
+    transform: scale(1.02);
+    transition: filter 0.5s ease, transform 0.5s ease, opacity 0.4s ease;
+}
+
+/* High-res loaded: remove blur, crisp result */
+.gallery__img--upgraded {
+    filter: blur(0);
+    transform: scale(1);
+    transition: filter 0.5s ease, transform 0.5s ease, opacity 0.4s ease;
+}
+
 @media (hover: hover) {
     .gallery__item:hover::after {
         background: rgba(0, 0, 0, 0.1);
