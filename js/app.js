@@ -9,6 +9,8 @@
     const contactStatus = document.getElementById('contactStatus');
     const contactSubmit = document.getElementById('contactSubmit');
 
+    const backToTop = document.getElementById('backToTop');
+
     // =====================
     // Navigation scroll effect
     // =====================
@@ -20,6 +22,24 @@
         } else {
             nav.classList.remove('nav--scrolled');
         }
+
+        // Back to top visibility
+        if (backToTop) {
+            if (scrollY > window.innerHeight / 2) {
+                backToTop.classList.add('back-to-top--visible');
+            } else {
+                backToTop.classList.remove('back-to-top--visible');
+            }
+        }
+    }
+
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
