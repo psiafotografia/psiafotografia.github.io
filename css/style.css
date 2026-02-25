@@ -775,8 +775,14 @@ button {
         --gallery-columns: 2;
     }
 
+    .hero {
+        height: auto;
+        min-height: 150px;
+        padding-top: var(--spacing-3xl);
+    }
+
     .gallery {
-        padding: var(--spacing-2xl) var(--spacing-sm) var(--spacing-xl);
+        padding: 0 var(--spacing-sm) var(--spacing-xl);
     }
 
     .lightbox__nav--prev {

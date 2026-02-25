@@ -26,6 +26,16 @@
         mouseInfluence: 0.02,
     };
 
+    function updateConfigForScreenSize() {
+        const isMobile = window.innerWidth <= 768;
+        CONFIG.particleDensity = isMobile ? 0.0001 : 0.00025;
+        CONFIG.minParticles = isMobile ? 25 : 80;
+        CONFIG.maxParticles = isMobile ? 100 : 500;
+        CONFIG.speed = isMobile ? 0.15 : 0.3;
+        CONFIG.lineDistance = isMobile ? 80 : 120;
+        CONFIG.mouseInfluence = isMobile ? 0.001 : 0.02; // Practically disable it on scroll
+    }
+
     class Particle {
         constructor() {
             this.reset();
@@ -135,7 +145,13 @@
     }
 
     function resize() {
-        const dpr = window.devicePixelRatio || 1;
+        updateConfigForScreenSize();
+
+        let dpr = window.devicePixelRatio || 1;
+        if (window.innerWidth <= 768) {
+            dpr = Math.min(dpr, 1.5); // Cap DPR on mobile to save GPU fill-rate
+        }
+
         const rect = canvas.getBoundingClientRect();
         width = rect.width;
         height = rect.height;
@@ -181,19 +197,40 @@
         mouse.y = null;
     }
 
-    // Visibility API - pause when tab not visible
+    let isVisible = true;
+
+    // Visibility API - pause when tab not visible or off-screen
     function onVisibilityChange() {
-        if (document.hidden) {
-            cancelAnimationFrame(animationId);
+        if (document.hidden || !isVisible) {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
         } else {
-            animate();
+            if (!animationId) {
+                animate();
+            }
         }
     }
 
     // Init
     function init() {
         resize();
-        animate();
+
+        // Stop animation if we scroll past hero/canvas to save battery
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isVisible = entry.isIntersecting;
+                onVisibilityChange();
+            });
+        }, { threshold: 0, rootMargin: '100px' });
+
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            observer.observe(hero);
+        } else {
+            observer.observe(canvas);
+        }
 
         window.addEventListener('resize', resize);
         document.addEventListener('mousemove', onMouseMove);
