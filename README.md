@@ -2,7 +2,7 @@
 
 Dark, minimal photography portfolio with constellation particle effects and masonry grid gallery.
 
-🔗 **Live:** [konradjaworskiphoto.github.io](https://konradjaworskiphoto.github.io)
+🔗 **Live:** [psiafotografia.github.io](https://psiafotografia.github.io)
 
 ## Setup
 
@@ -27,10 +27,10 @@ Open [http://localhost:8000](http://localhost:8000)
 
 ### 3. Deploy to GitHub Pages
 
-1. Create a repo named `konradjaworskiphoto.github.io` on GitHub
+1. Create a repo named `psiafotografia.github.io` on GitHub
 2. Push this code to the `main` branch
 3. Go to **Settings → Pages** → set source to `main` branch
-4. Site will be live at `https://konradjaworskiphoto.github.io`
+4. Site will be live at `https://psiafotografia.github.io`
 
 ### 4. Contact Form
 
