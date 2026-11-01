@@ -45,7 +45,15 @@ jobs:
         run: python scripts/sync_photos.py --insert-at "$INSERT_AT"
 
       - name: Commit and push
+        env:
+          BRANCH: ${{ github.ref_name }}
+          REF_TYPE: ${{ github.ref_type }}
         run: |
+          if [ "$REF_TYPE" != "branch" ]; then
+            echo "Run this workflow from a branch, not a tag."
+            exit 1
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -56,5 +64,5 @@ jobs:
           fi
 
           git commit -m "Sync new photos from Google Photos"
-          git pull --rebase
-          git push
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"
