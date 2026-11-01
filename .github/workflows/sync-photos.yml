@@ -40,7 +40,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Sync new photos
-        run: python scripts/sync_photos.py --insert-at "${{ inputs.insert_at }}"
+        env:
+          INSERT_AT: ${{ inputs.insert_at }}
+        run: python scripts/sync_photos.py --insert-at "$INSERT_AT"
 
       - name: Commit and push
         run: |
