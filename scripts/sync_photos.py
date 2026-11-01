@@ -387,7 +387,7 @@ def deploy(added_count: int) -> None:
     )
     print(f"Committed {added_count} new photo(s) on {branch}.")
 
-    push = git("push", check=False)
+    push = git("push", "-u", "origin", "HEAD", check=False)
     if push.returncode != 0:
         print(push.stderr.strip())
         raise RuntimeError("git push failed - resolve the conflict and push manually.")
@@ -484,7 +484,7 @@ def main() -> None:
         print(f"  {photo['taken_at']:%Y-%m-%d}  {photo['width']}x{photo['height']}  {photo['id'][:14]}")
 
     if args.dry_run:
-        print("\nDry run: nothing was downloaded or written.")
+        print("\nDry run: no photos were processed and no files were written.")
         return
 
     print("\nProcessing photos...")
