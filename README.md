@@ -3,21 +3,86 @@
 Dark, minimal photography portfolio with constellation particle effects and masonry grid gallery.
 
 🔗 **Live:** [psiafotografia.github.io](https://psiafotografia.github.io)
+📷 **Photo album:** [Google Photos](https://photos.app.goo.gl/bYWFbXo7h8d5qz8f7)
 
-## Setup
+## Adding new photos
 
-### 1. Process Photos
+The shared [Google Photos album](https://photos.app.goo.gl/bYWFbXo7h8d5qz8f7) is the source
+of truth. Add new photos there, then sync them to the site.
 
-Download all photos from the [Google Photos album](https://photos.app.goo.gl/wz1RvDjhbJG3K62r8) into a local folder, then run:
+The sync is **incremental and safe**:
+
+- only photos that are not already on the site are downloaded;
+- duplicates are detected visually, not by filename;
+- existing photos, their order and their alt texts are never changed;
+- new photos are optimized (400 px thumbs + 1200 px medium) and added at the top;
+- nothing is ever deleted automatically.
+
+### Option A — GitHub Actions (no local setup)
+
+1. Add photos to the Google Photos album.
+2. Open **Actions → “Sync photos from Google Photos” → Run workflow**.
+3. Wait ~1–3 minutes. The workflow commits the new images and `photos.json`;
+   GitHub Pages publishes the site automatically.
+
+Choose `top` or `bottom` in the workflow input to control where new photos appear.
+
+### Option B — locally
 
 ```bash
-pip install Pillow
+pip install -r requirements.txt
+
+# Preview what would be added (nothing is written)
+python scripts/sync_photos.py --dry-run
+
+# Download, optimize and update js/photos.json
+python scripts/sync_photos.py
+
+# Preview the site
+python -m http.server 8000
+```
+
+Then commit and push:
+
+```bash
+git add images/thumbs images/medium js/photos.json
+git commit -m "Add new photos from Google Photos"
+git push
+```
+
+Or let the script do it:
+
+```bash
+python scripts/sync_photos.py --deploy
+```
+
+Useful options:
+
+```bash
+python scripts/sync_photos.py --insert-at bottom   # add new photos at the end
+python scripts/sync_photos.py --limit 5            # add at most 5 new photos
+python scripts/sync_photos.py --album <share-url>  # use a different album
+```
+
+### Reordering photos
+
+Open [`admin.html`](https://psiafotografia.github.io/admin.html) locally through a server,
+drag photos into the order you want, then download the generated `photos.json` and replace
+`js/photos.json`.
+
+## Initial setup / full rebuild
+
+If you want to rebuild the whole gallery from a folder of originals (for example a ZIP
+downloaded from Google Photos), run:
+
+```bash
+pip install -r requirements.txt
 python scripts/process_photos.py "C:/path/to/downloaded/photos"
 ```
 
-This generates optimized thumbnails and medium-res images, plus a `js/photos.json` manifest.
+This regenerates every thumbnail, medium image and the complete `photos.json` manifest.
 
-### 2. Preview Locally
+## Preview locally
 
 ```bash
 python -m http.server 8000
@@ -25,23 +90,32 @@ python -m http.server 8000
 
 Open [http://localhost:8000](http://localhost:8000)
 
-### 3. Deploy to GitHub Pages
+## Deploy to GitHub Pages
 
-1. Create a repo named `psiafotografia.github.io` on GitHub
-2. Push this code to the `main` branch
-3. Go to **Settings → Pages** → set source to `main` branch
-4. Site will be live at `https://psiafotografia.github.io`
+1. Push to the `main` branch of `psiafotografia/psiafotografia.github.io`
+2. Go to **Settings → Pages** → source: `main` branch
+3. The site is live at [https://psiafotografia.github.io](https://psiafotografia.github.io)
 
-### 4. Contact Form
+## Contact form
 
 1. Sign up at [formspree.io](https://formspree.io)
 2. Create a new form
-3. Replace `YOUR_FORM_ID` in `index.html` with your Formspree form ID
+3. Replace the Formspree ID in `index.html`
 
-## Tech Stack
+## Tech stack
 
 - Vanilla HTML / CSS / JavaScript
 - JavaScript absolute-positioning masonry layout
 - Canvas-based particle system
 - Formspree for contact form
 - GitHub Pages hosting
+- Pillow-based photo pipeline
+- Optional GitHub Actions sync from a public Google Photos album
+
+## Notes
+
+- The Google Photos album must stay shared as **“Anyone with the link can view”**.
+- The sync reads the public share page, not the official Google Photos API.
+  If Google changes that page, use the ZIP + `process_photos.py` fallback.
+- Sync only adds photos. To remove a photo, delete its entry from `js/photos.json`
+  and remove the two image files.
